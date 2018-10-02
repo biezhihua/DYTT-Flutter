@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 void main() => runApp(new MyApp());
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
@@ -39,6 +38,22 @@ class _MyHomePageState extends State<MyHomePage> {
     return new Scaffold(
       appBar: new AppBar(
         title: new Text(widget.title),
+      ),
+      drawer: new Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            new DrawerHeader(
+                child: new Text('Drawer Header'),
+                decoration: BoxDecoration(color: Colors.red)),
+            ListTile(
+                leading: new Image.asset('images/film.png'),
+                title: new Text('电影天堂'),
+                onTap: () {
+                  Navigator.pop(context);
+                }),
+          ],
+        ),
       ),
       body: new Center(
         child: new Column(
