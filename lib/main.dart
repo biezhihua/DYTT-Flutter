@@ -1,4 +1,5 @@
-import 'package:DYTT_FLUTTER/material_theme.dart';
+import 'package:DYTT_FLUTTER/drawerlayout.dart';
+import 'package:DYTT_FLUTTER/theme.dart';
 import 'package:DYTT_FLUTTER/strings.dart';
 import 'package:flutter/material.dart';
 
@@ -8,23 +9,23 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: DyttStrings.appName,
+      title: Strings.appName,
       theme: ThemeData(
-        primaryColor: DyttMaterialTheme.colorPrimary,
-        primaryColorDark: DyttMaterialTheme.colorPrimaryDark,
-        accentColor: DyttMaterialTheme.colorAccent,
+        primaryColor: MaterialTheme.colorPrimary,
+        primaryColorDark: MaterialTheme.colorPrimaryDark,
+        accentColor: MaterialTheme.colorAccent,
       ),
-      home: MyHomePage(),
+      home: HomePage(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
+class HomePage extends StatefulWidget {
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _HomePageState createState() => _HomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _HomePageState extends State<HomePage> {
   int _counter = 0;
 
   void _incrementCounter() {
@@ -36,51 +37,8 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(DyttStrings.appName),
-      ),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            DrawerHeader(
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                          margin: EdgeInsets.only(bottom: 10.0),
-                          child: Image.asset(
-                            "images/icon.png",
-                            width: 64.0,
-                            height: 64.0,
-                          )),
-                      Container(
-                          margin: EdgeInsets.only(bottom: 10.0),
-                          child: Text(
-                            DyttStrings.drawerLayoutAd,
-                            style: TextStyle(color: Colors.white),
-                          )),
-                      Container(
-                        margin: EdgeInsets.only(bottom: 10.0),
-                        child: Text(
-                          DyttStrings.drawerLayoutGithub,
-                          softWrap: false,
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      )
-                    ]),
-                decoration:
-                    BoxDecoration(color: DyttMaterialTheme.colorPrimary)),
-            ListTile(
-                leading: Image.asset('images/film.png'),
-                title: Text(DyttStrings.appName),
-                onTap: () {
-                  Navigator.pop(context);
-                }),
-          ],
-        ),
-      ),
+      appBar: AppBar(title: Text(Strings.appName)),
+      drawer: DrawerLayout(),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
