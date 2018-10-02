@@ -1,3 +1,4 @@
+import 'package:DYTT_FLUTTER/material_theme.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(new MyApp());
@@ -7,9 +8,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return new MaterialApp(
       title: '电影天堂',
-      theme: new ThemeData(
-        primarySwatch: Colors.red,
-      ),
+      theme: new ThemeData(primaryColor: DyttMaterialTheme.colorPrimary),
       home: new MyHomePage(title: '电影天堂'),
     );
   }
@@ -44,8 +43,21 @@ class _MyHomePageState extends State<MyHomePage> {
           padding: EdgeInsets.zero,
           children: <Widget>[
             new DrawerHeader(
-                child: new Text('Drawer Header'),
-                decoration: BoxDecoration(color: Colors.red)),
+                child: new Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      new Text(
+                        '随时随地，想看就看',
+                        style: new TextStyle(color: Colors.white),
+                      ),
+                      new Text(
+                        'https://github.com/biezhihua',
+                        softWrap: false,
+                      )
+                    ]),
+                decoration:
+                    BoxDecoration(color: DyttMaterialTheme.colorPrimary)),
             ListTile(
                 leading: new Image.asset('images/film.png'),
                 title: new Text('电影天堂'),
