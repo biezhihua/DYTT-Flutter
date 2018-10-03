@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -16,39 +17,71 @@ class ListPage extends StatefulWidget {
   State<StatefulWidget> createState() => _ListPageState(_tabType);
 }
 
-class _ListPageState extends State<ListPage> {
-  TabType tabType;
+class _ListPageState extends State<ListPage> with WidgetsBindingObserver {
+  TabType _tabType;
 
-  _ListPageState(this.tabType);
+  List<String> _data = List();
+
+  _ListPageState(this._tabType);
+
+  @override
+  void initState() {
+    super.initState();
+    log("initState");
+    WidgetsBinding.instance.addObserver(this);
+    loadData();
+  }
+
+  @override
+  void dispose() {
+    log("dispose");
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+    log("didChangeAppLifecycleState $state");
+  }
 
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
-        child: ListView(children: _getItems()), onRefresh: _handleRefresh);
-  }
+        child: ListView.builder(
+          itemBuilder: (context, i) {
+            log("build $context $i");
 
-  var _count = 0;
+            if (i >= _data.length) {
+              return null;
+            }
 
-  List<Widget> _getItems() {
-    var items = <Widget>[];
-    for (int i = _count; i < _count + 10; i++) {
-      var item = Column(
-        children: <Widget>[
-          ListTile(title: Text("Item Type $tabType Item $i")),
-          Divider(height: 2.0)
-        ],
-      );
-      items.add(item);
-    }
-    return items;
+            String content = _data[i];
+            return Column(
+              children: <Widget>[
+                ListTile(title: Text("Item Type $_tabType Item $i $content ")),
+                Divider(height: 2.0)
+              ],
+            );
+          },
+        ),
+        onRefresh: _handleRefresh);
   }
 
   Future<Null> _handleRefresh() async {
-    await Future.delayed(Duration(seconds: 3));
+    await Future.delayed(Duration(milliseconds: 1));
 
     setState(() {
-      _count += 5;
+      var now = DateTime.now();
+      _data.add("biezhihua $now");
     });
     return null;
+  }
+
+  void loadData() {
+    setState(() {
+      var now = DateTime.now();
+      _data.add("biezhihua $now");
+    });
   }
 }
