@@ -33,6 +33,7 @@ class _HomePageState extends State<HomePage> {
       child: Scaffold(
         drawer: DrawerLayout(),
         appBar: AppBar(
+          actions: <Widget>[Image.asset("images/search.png")],
           bottom: TabBar(
             isScrollable: true,
             tabs: [
@@ -52,16 +53,16 @@ class _HomePageState extends State<HomePage> {
         ),
         body: TabBarView(
           children: [
-            Container(),
-            Container(),
-            Container(),
-            Container(),
-            Container(),
-            Container(),
-            Container(),
-            Container(),
-            Container(),
-            Container()
+            Container(child: Text(Strings.tab1)),
+            Container(child: Text(Strings.tab2)),
+            Container(child: Text(Strings.tab3)),
+            Container(child: Text(Strings.tab4)),
+            Container(child: Text(Strings.tab5)),
+            Container(child: Text(Strings.tab6)),
+            Container(child: Text(Strings.tab7)),
+            Container(child: Text(Strings.tab8)),
+            Container(child: Text(Strings.tab9)),
+            Container(child: Text(Strings.tab10))
           ],
         ),
       ),
