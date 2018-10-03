@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:DYTT_FLUTTER/drawerlayout.dart';
+import 'package:DYTT_FLUTTER/listpage.dart';
 import 'package:DYTT_FLUTTER/theme.dart';
 import 'package:DYTT_FLUTTER/strings.dart';
 import 'package:flutter/material.dart';
@@ -35,6 +38,8 @@ class _HomePageState extends State<HomePage> {
         appBar: AppBar(
           actions: <Widget>[Image.asset("images/search.png")],
           bottom: TabBar(
+            labelColor: Colors.white,
+            indicatorColor: Colors.white,
             isScrollable: true,
             tabs: [
               Tab(text: Strings.tab1),
@@ -53,7 +58,7 @@ class _HomePageState extends State<HomePage> {
         ),
         body: TabBarView(
           children: [
-            Container(child: Text(Strings.tab1)),
+            Container(child: ListPage()),
             Container(child: Text(Strings.tab2)),
             Container(child: Text(Strings.tab3)),
             Container(child: Text(Strings.tab4)),
