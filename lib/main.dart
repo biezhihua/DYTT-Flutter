@@ -1,7 +1,7 @@
 import 'package:DYTT_FLUTTER/drawerlayout.dart';
 import 'package:DYTT_FLUTTER/listpage.dart';
-import 'package:DYTT_FLUTTER/theme.dart';
 import 'package:DYTT_FLUTTER/strings.dart';
+import 'package:DYTT_FLUTTER/theme.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());

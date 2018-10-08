@@ -43,7 +43,9 @@ class _ListPageState extends State<ListPage> with WidgetsBindingObserver {
   void didChangeAppLifecycleState(AppLifecycleState state) {
     super.didChangeAppLifecycleState(state);
     log("didChangeAppLifecycleState $state");
+    
   }
+  
 
   @override
   Widget build(BuildContext context) {
