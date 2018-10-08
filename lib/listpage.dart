@@ -1,10 +1,9 @@
 import 'dart:async';
 import 'dart:developer';
 
-import 'package:DYTT_FLUTTER/key_util.dart';
+import 'package:DYTT_FLUTTER/network_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:http/http.dart' as http;
 
 enum TabType { tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9, tab10 }
 
@@ -21,6 +20,8 @@ class ListPage extends StatefulWidget {
 
 class _ListPageState extends State<ListPage> with WidgetsBindingObserver {
   TabType _tabType;
+
+  NetworkApi _NetworkApi = NetworkApi();
 
   List<String> _data = List();
 
@@ -66,7 +67,7 @@ class _ListPageState extends State<ListPage> with WidgetsBindingObserver {
   }
 
   Future<Null> _handleRefresh() async {
-
+    var test = await _NetworkApi.fetchMovieList(9, 1);
 
     await Future.delayed(Duration(milliseconds: 1));
 

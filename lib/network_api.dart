@@ -4,18 +4,6 @@ import 'dart:convert';
 import 'package:DYTT_FLUTTER/key_util.dart';
 import 'package:http/http.dart' as http;
 
-class MovieListResponse {
-  final int total;
-  final List<MovieDetail> rows;
-
-  MovieListResponse({this.total, this.rows});
-
-  factory MovieListResponse.fromJson(Map<String, dynamic> json) {
-    return MovieListResponse(
-        total: json['total'] as int, rows: json['rows'] as List<MovieDetail>);
-  }
-}
-
 class MovieDetail {
   int id;
   int categoryId;
@@ -30,7 +18,7 @@ class MovieDetail {
 class NetworkApi {
   static KeyUtils keyUtils = KeyUtils();
 
-  Future<MovieListResponse> fetchMovieList(int categoryId, int page) async {
+  Future<List> fetchMovieList(int categoryId, int page) async {
     var currentTime = DateTime.now().millisecondsSinceEpoch;
 
     var timeStamp = (currentTime / 1000).ceil();
@@ -55,7 +43,8 @@ class NetworkApi {
         body: body);
 
     if (response.statusCode == 200) {
-      return MovieListResponse.fromJson(json.decode(response.body));
+      var json2 = json.decode(response.body);
+      return json2['rows'] as List;
     } else {
       return null;
     }
