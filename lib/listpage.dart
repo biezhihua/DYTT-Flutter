@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:DYTT_FLUTTER/key_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:http/http.dart' as http;
 
 enum TabType { tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9, tab10 }
 
@@ -65,9 +66,28 @@ class _ListPageState extends State<ListPage> with WidgetsBindingObserver {
   }
 
   Future<Null> _handleRefresh() async {
-    var keyUtils = KeyUtils();
+    var currentTime = DateTime.now().millisecondsSinceEpoch;
 
-    var key = await keyUtils.getHeaderKey(DateTime.now().millisecondsSinceEpoch);
+    var timeStamp = (currentTime / 1000).ceil();
+
+    var imei = "";
+
+    var key = await KeyUtils().getHeaderKey(timeStamp);
+
+    Map<String, String> header = Map<String, String>();
+    header["x-header-request-timestamp"] = timeStamp.toString();
+    header["x-header-request-key"] = key;
+    header["x-header-request-imei"] = "";
+
+    Map<String, String> body = Map<String, String>();
+    body["categoryId"] = 9.toString();
+    body["page"] = 1.toString();
+    body["searchContent"] = "";
+
+    final response = await http.post(
+        'http://m.dydytt.net:8080/adminapi/api/movieList.json',
+        headers: header,
+        body: body);
 
     await Future.delayed(Duration(milliseconds: 1));
 

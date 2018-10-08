@@ -21,7 +21,7 @@ public class MainActivity extends FlutterActivity {
 
                 if (methodCall.method.equals("getHeaderKey")) {
                     try {
-                        Long currentTime = ((Long) methodCall.arguments);
+                        Integer currentTime = ((Integer) methodCall.arguments);
                         String headerKey = KeyUtils.getHeaderKey(currentTime);
                         result.success(headerKey);
                     } catch (Exception e) {
