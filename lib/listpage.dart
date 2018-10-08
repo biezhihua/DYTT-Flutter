@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:developer';
 
+import 'package:DYTT_FLUTTER/key_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -43,9 +44,7 @@ class _ListPageState extends State<ListPage> with WidgetsBindingObserver {
   void didChangeAppLifecycleState(AppLifecycleState state) {
     super.didChangeAppLifecycleState(state);
     log("didChangeAppLifecycleState $state");
-    
   }
-  
 
   @override
   Widget build(BuildContext context) {
@@ -66,6 +65,10 @@ class _ListPageState extends State<ListPage> with WidgetsBindingObserver {
   }
 
   Future<Null> _handleRefresh() async {
+    var keyUtils = KeyUtils();
+
+    var key = await keyUtils.getHeaderKey(DateTime.now().millisecondsSinceEpoch);
+
     await Future.delayed(Duration(milliseconds: 1));
 
     setState(() {
