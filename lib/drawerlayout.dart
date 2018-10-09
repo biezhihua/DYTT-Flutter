@@ -39,7 +39,11 @@ class DrawerLayout extends StatelessWidget {
                   ]),
               decoration: BoxDecoration(color: MaterialTheme.colorPrimary)),
           ListTile(
-              leading: Image.asset('images/film.png'),
+              leading: Image.asset(
+                'images/film.png',
+                width: 32.0,
+                height: 32.0,
+              ),
               title: Text(Strings.appName),
               onTap: () {
                 Navigator.pop(context);

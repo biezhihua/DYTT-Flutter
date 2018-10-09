@@ -34,7 +34,16 @@ class _HomePageState extends State<HomePage> {
       child: Scaffold(
         drawer: DrawerLayout(),
         appBar: AppBar(
-          actions: <Widget>[Image.asset("images/search.png")],
+          actions: <Widget>[
+            Container(
+              margin: EdgeInsets.only(right: 10.0),
+              child: Image.asset(
+                "images/search.png",
+                width: 32.0,
+                height: 32.0,
+              ),
+            )
+          ],
           bottom: TabBar(
             labelColor: Colors.white,
             indicatorColor: Colors.white,

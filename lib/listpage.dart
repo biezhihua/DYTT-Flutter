@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:DYTT_FLUTTER/network_api.dart';
 import 'package:flutter/material.dart';
@@ -15,19 +14,19 @@ class ListPage extends StatefulWidget {
   }
 
   @override
-  State<StatefulWidget> createState() => _ListPageState(_tabType);
+  State<StatefulWidget> createState() => ListPageState(_tabType);
 }
 
-class _ListPageState extends State<ListPage> with WidgetsBindingObserver {
+class ListPageState extends State<ListPage> with WidgetsBindingObserver {
   TabType _tabType;
 
-  NetworkApi _NetworkApi = NetworkApi();
+  NetworkApi _networkApi = NetworkApi();
 
   int _currentPage = 1;
 
   List<MovieDetail> _data = List();
 
-  _ListPageState(this._tabType);
+  ListPageState(this._tabType);
 
   @override
   void initState() {
@@ -49,19 +48,20 @@ class _ListPageState extends State<ListPage> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
-    return RefreshIndicator(
-        child: ListView.builder(
+    if (_data.length == 0) {
+      return Center(child: Text("加载数据中......"));
+    }
+    var listView = ListView.builder(
           itemBuilder: (context, i) {
-            log("build $context $i");
-
             if (i >= _data.length) {
               return null;
             }
-
             MovieDetail content = _data[i];
             return _buildItem(content, i);
           },
-        ),
+        );
+    return RefreshIndicator(
+        child: listView,
         onRefresh: _handleRefresh);
   }
 
@@ -69,7 +69,7 @@ class _ListPageState extends State<ListPage> with WidgetsBindingObserver {
     _currentPage = 1;
 
     var list =
-        await _NetworkApi.fetchMovieList(getCategoryIdByTab(), _currentPage);
+        await _networkApi.fetchMovieList(getCategoryIdByTab(), _currentPage);
 
     setState(() {
       _data.addAll(list);
@@ -79,7 +79,7 @@ class _ListPageState extends State<ListPage> with WidgetsBindingObserver {
   }
 
   void loadData() {
-    _NetworkApi.fetchMovieList(getCategoryIdByTab(), _currentPage).then((list) {
+    _networkApi.fetchMovieList(getCategoryIdByTab(), _currentPage).then((list) {
       setState(() {
         _data.addAll(list);
       });
