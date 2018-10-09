@@ -23,21 +23,21 @@ class _ListPageState extends State<ListPage> with WidgetsBindingObserver {
 
   NetworkApi _NetworkApi = NetworkApi();
 
-  List<String> _data = List();
+  int _currentPage = 1;
+
+  List<MovieDetail> _data = List();
 
   _ListPageState(this._tabType);
 
   @override
   void initState() {
     super.initState();
-    log("initState");
     WidgetsBinding.instance.addObserver(this);
     loadData();
   }
 
   @override
   void dispose() {
-    log("dispose");
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
@@ -45,7 +45,6 @@ class _ListPageState extends State<ListPage> with WidgetsBindingObserver {
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     super.didChangeAppLifecycleState(state);
-    log("didChangeAppLifecycleState $state");
   }
 
   @override
@@ -59,7 +58,7 @@ class _ListPageState extends State<ListPage> with WidgetsBindingObserver {
               return null;
             }
 
-            String content = _data[i];
+            MovieDetail content = _data[i];
             return _buildItem(content, i);
           },
         ),
@@ -67,25 +66,27 @@ class _ListPageState extends State<ListPage> with WidgetsBindingObserver {
   }
 
   Future<Null> _handleRefresh() async {
-    var test = await _NetworkApi.fetchMovieList(9, 1);
+    _currentPage = 1;
 
-    await Future.delayed(Duration(milliseconds: 1));
+    var list =
+        await _NetworkApi.fetchMovieList(getCategoryIdByTab(), _currentPage);
 
     setState(() {
-      var now = DateTime.now();
-      _data.add("biezhihua $now");
+      _data.addAll(list);
     });
+
     return null;
   }
 
   void loadData() {
-    setState(() {
-      var now = DateTime.now();
-      _data.add("biezhihua $now");
+    _NetworkApi.fetchMovieList(getCategoryIdByTab(), _currentPage).then((list) {
+      setState(() {
+        _data.addAll(list);
+      });
     });
   }
 
-  Widget _buildItem(String content, int i) {
+  Widget _buildItem(MovieDetail movie, int i) {
     return Column(
       children: <Widget>[
         Container(
@@ -106,13 +107,13 @@ class _ListPageState extends State<ListPage> with WidgetsBindingObserver {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Text(
-                            "2018年惊悚动作《摩天营救》BD国英英双语双字",
+                            movie.name ?? "",
                             softWrap: true,
                             style: TextStyle(color: Colors.black),
                           ),
                           Container(
                             child: Text(
-                              "2018-10-03",
+                              movie.publishTime ?? "",
                               softWrap: false,
                               style: TextStyle(color: Colors.black38),
                             ),
@@ -120,8 +121,7 @@ class _ListPageState extends State<ListPage> with WidgetsBindingObserver {
                           ),
                           Container(
                             margin: EdgeInsets.only(top: 10.0),
-                            child: Text(
-                                "简介： 在香港市中心，世界上最高、结构最复杂的摩天大楼遭到破坏，危机一触即发。威尔·索耶（道恩·强森 饰）的妻子萨拉（内芙·坎贝尔 饰）和孩子们在98层被劫为人质，直接暴露在火线上。威尔，这位战争英雄、前联邦调查局救援队员，作为大楼的安保顾问，却被诬陷纵火和谋杀。他必须奋力营救家人，为自己洗脱罪名，关乎生死存亡的高空任务就此展开。",
+                            child: Text(movie.content ?? "",
                                 softWrap: true,
                                 style: TextStyle(color: Colors.black87),
                                 maxLines: 5,
@@ -133,5 +133,31 @@ class _ListPageState extends State<ListPage> with WidgetsBindingObserver {
         Divider(height: 2.0)
       ],
     );
+  }
+
+  int getCategoryIdByTab() {
+    switch (_tabType) {
+      case TabType.tab1:
+        return 9;
+      case TabType.tab2:
+        return 10;
+      case TabType.tab3:
+        return 1;
+      case TabType.tab4:
+        return 2;
+      case TabType.tab5:
+        return 3;
+      case TabType.tab6:
+        return 4;
+      case TabType.tab7:
+        return 5;
+      case TabType.tab8:
+        return 6;
+      case TabType.tab9:
+        return 7;
+      case TabType.tab10:
+        return 8;
+    }
+    return 9;
   }
 }

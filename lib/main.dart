@@ -57,15 +57,15 @@ class _HomePageState extends State<HomePage> {
         body: TabBarView(
           children: [
             Container(child: ListPage(TabType.tab1)),
-            Container(child: Text(Strings.tab2)),
-            Container(child: Text(Strings.tab3)),
-            Container(child: Text(Strings.tab4)),
-            Container(child: Text(Strings.tab5)),
-            Container(child: Text(Strings.tab6)),
-            Container(child: Text(Strings.tab7)),
-            Container(child: Text(Strings.tab8)),
-            Container(child: Text(Strings.tab9)),
-            Container(child: Text(Strings.tab10))
+            Container(child: ListPage(TabType.tab2)),
+            Container(child: ListPage(TabType.tab3)),
+            Container(child: ListPage(TabType.tab4)),
+            Container(child: ListPage(TabType.tab5)),
+            Container(child: ListPage(TabType.tab6)),
+            Container(child: ListPage(TabType.tab7)),
+            Container(child: ListPage(TabType.tab8)),
+            Container(child: ListPage(TabType.tab9)),
+            Container(child: ListPage(TabType.tab10))
           ],
         ),
       ),
