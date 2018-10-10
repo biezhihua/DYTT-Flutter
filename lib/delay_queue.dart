@@ -21,16 +21,22 @@ class DelayObject {
 }
 
 class DelayQueue {
+  static final DelayQueue _singleton = new DelayQueue._internal();
+
+  factory DelayQueue() {
+    return _singleton;
+  }
+
+  DelayQueue._internal();
+
   int _delayOfEachProducedMessageMillis = 1000;
   Queue<DelayObject> _delayQueue = ListQueue<DelayObject>();
   bool _startFlag;
 
-  DelayQueue();
-
   StreamSubscription _listen;
 
   void start() {
-    _listen = _start().listen((delayObject) {
+    _start().listen((delayObject) {
       delayObject.value();
     });
   }

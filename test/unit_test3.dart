@@ -1,22 +1,17 @@
 import 'dart:async';
-import 'dart:io';
 import 'dart:isolate';
 
-
-main()  {
+main() async {
   var receivePort = new ReceivePort();
-   Isolate.spawn(echo, receivePort.sendPort);
+  await Isolate.spawn(echo, receivePort.sendPort);
 
   // 'echo'发送的第一个message，是它的SendPort
-   receivePort.first.then((sendPort){
-     print(sendPort.toString());
-   });
+  var sendPort = await receivePort.first;
 
-
-//  var msg = await sendReceive(sendPort, "foo");
-//  print('received $msg');
-//  msg = await sendReceive(sendPort, "bar");
-//  print('received $msg');
+  var msg = await sendReceive(sendPort, "foo");
+  print('received $msg');
+  msg = await sendReceive(sendPort, "bar");
+  print('received $msg');
 }
 
 /// 新isolate的入口函数

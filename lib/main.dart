@@ -1,3 +1,7 @@
+import 'dart:async';
+import 'dart:isolate';
+
+import 'package:DYTT_FLUTTER/delay_queue.dart';
 import 'package:DYTT_FLUTTER/drawerlayout.dart';
 import 'package:DYTT_FLUTTER/listpage.dart';
 import 'package:DYTT_FLUTTER/strings.dart';
@@ -5,6 +9,8 @@ import 'package:DYTT_FLUTTER/theme.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
+
+DelayQueue delayQueue = DelayQueue();
 
 class MyApp extends StatelessWidget {
   @override
@@ -27,6 +33,12 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    super.initState();
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(

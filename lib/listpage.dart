@@ -1,10 +1,13 @@
 import 'dart:async';
 
+import 'package:DYTT_FLUTTER/delay_queue.dart';
 import 'package:DYTT_FLUTTER/network_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 enum TabType { tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9, tab10 }
+
+DelayQueue delayQueue = DelayQueue();
 
 class ListPage extends StatefulWidget {
   TabType _tabType;
@@ -52,17 +55,15 @@ class ListPageState extends State<ListPage> with WidgetsBindingObserver {
       return Center(child: Text("加载数据中......"));
     }
     var listView = ListView.builder(
-          itemBuilder: (context, i) {
-            if (i >= _data.length) {
-              return null;
-            }
-            MovieDetail content = _data[i];
-            return _buildItem(content, i);
-          },
-        );
-    return RefreshIndicator(
-        child: listView,
-        onRefresh: _handleRefresh);
+      itemBuilder: (context, i) {
+        if (i >= _data.length) {
+          return null;
+        }
+        MovieDetail content = _data[i];
+        return _buildItem(content, i);
+      },
+    );
+    return RefreshIndicator(child: listView, onRefresh: _handleRefresh);
   }
 
   Future<Null> _handleRefresh() async {
@@ -79,11 +80,15 @@ class ListPageState extends State<ListPage> with WidgetsBindingObserver {
   }
 
   void loadData() {
-    _networkApi.fetchMovieList(getCategoryIdByTab(), _currentPage).then((list) {
-      setState(() {
-        _data.addAll(list);
+    delayQueue.add(DelayObject(_tabType.toString(), () {
+      _networkApi
+          .fetchMovieList(getCategoryIdByTab(), _currentPage)
+          .then((list) {
+        setState(() {
+          _data.addAll(list);
+        });
       });
-    });
+    }));
   }
 
   Widget _buildItem(MovieDetail movie, int i) {
