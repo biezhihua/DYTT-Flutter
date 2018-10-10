@@ -1,9 +1,7 @@
 import 'dart:async';
 import 'dart:collection';
 
-abstract class Runnable {
-  void run() {}
-}
+typedef void Runnable();
 
 class DelayObject {
   final String key;
@@ -19,7 +17,7 @@ class DelayObject {
   @override
   int get hashCode => key.hashCode;
 
-  DelayObject(this.key, this.value);
+  DelayObject(this.key, [this.value]);
 }
 
 class DelayQueue {
@@ -29,11 +27,15 @@ class DelayQueue {
 
   DelayQueue();
 
+  StreamSubscription _listen;
+
   void start() {
-    _start().listen((_) {});
+    _listen = _start().listen((delayObject) {
+      delayObject.value();
+    });
   }
 
-  Stream<void> _start() async* {
+  Stream<DelayObject> _start() async* {
     _startFlag = true;
     int startTime = DateTime.now().millisecondsSinceEpoch;
     while (_startFlag) {
@@ -42,7 +44,7 @@ class DelayQueue {
           (currentTime - startTime) >= _delayOfEachProducedMessageMillis) {
         startTime = currentTime;
         var result = _delayQueue.removeFirst();
-        result.value.run();
+        yield result;
       }
     }
   }
@@ -58,5 +60,9 @@ class DelayQueue {
   void stop() {
     _startFlag = false;
     _delayQueue.clear();
+    if (_listen != null) {
+      _listen.cancel();
+      _listen = null;
+    }
   }
 }
