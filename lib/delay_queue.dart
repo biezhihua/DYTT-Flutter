@@ -1,18 +1,39 @@
 import 'dart:async';
 import 'dart:collection';
 
-class DelayQueue<T> {
+abstract class Runnable {
+  void run() {}
+}
+
+class DelayObject {
+  final String key;
+  final Runnable value;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is DelayObject &&
+          runtimeType == other.runtimeType &&
+          key == other.key;
+
+  @override
+  int get hashCode => key.hashCode;
+
+  DelayObject(this.key, this.value);
+}
+
+class DelayQueue {
   int _delayOfEachProducedMessageMillis = 1000;
-  Queue<T> _delayQueue = ListQueue<T>();
+  Queue<DelayObject> _delayQueue = ListQueue<DelayObject>();
   bool _startFlag;
 
-  DelayQueue() {}
+  DelayQueue();
 
   void start() {
-    _start().then((_) {});
+    _start().listen((_) {});
   }
 
-  Future<void> _start() async {
+  Stream<void> _start() async* {
     _startFlag = true;
     int startTime = DateTime.now().millisecondsSinceEpoch;
     while (_startFlag) {
@@ -21,16 +42,16 @@ class DelayQueue<T> {
           (currentTime - startTime) >= _delayOfEachProducedMessageMillis) {
         startTime = currentTime;
         var result = _delayQueue.removeFirst();
-        print(result);
+        result.value.run();
       }
     }
   }
 
-  void add(T t) {
+  void add(DelayObject t) {
     _delayQueue.add(t);
   }
 
-  void remove(T t) {
+  void remove(DelayObject t) {
     _delayQueue.remove(t);
   }
 
