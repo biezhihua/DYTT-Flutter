@@ -40,6 +40,7 @@ class DelayQueue {
   }
 
   void add(DelayObject t) {
+    print("delay queue add");
     _delayQueue.add(t);
   }
 
@@ -50,10 +51,12 @@ class DelayQueue {
   }
 
   void clear() {
+    print("delay queue clear");
     _delayQueue.clear();
   }
 
   void stop() {
+    print("delay queue stop");
     _timer.cancel();
     _delayQueue.clear();
   }

@@ -36,6 +36,7 @@ class ListPageState extends State<ListPage> with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
+    delayQueue.clear();
     WidgetsBinding.instance.addObserver(this);
     loadData();
   }
@@ -97,7 +98,6 @@ class ListPageState extends State<ListPage> with WidgetsBindingObserver {
   @override
   void dispose() {
     _dispose = true;
-    delayQueue.clear();
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
@@ -144,12 +144,19 @@ class ListPageState extends State<ListPage> with WidgetsBindingObserver {
         Container(
             margin: EdgeInsets.all(10.0),
             child: Row(children: <Widget>[
-              FadeInImage.assetNetwork(
-                  image: movie.homePicUrl,
-                  width: 150.0,
-                  height: 200.0,
-                  fit: BoxFit.cover,
-                  placeholder: "images/default_video.png"),
+              movie.homePicUrl == null
+                  ? Image.asset(
+                      "images/default_video.png",
+                      width: 150.0,
+                      height: 200.0,
+                      fit: BoxFit.cover,
+                    )
+                  : FadeInImage.assetNetwork(
+                      image: movie.homePicUrl,
+                      width: 150.0,
+                      height: 200.0,
+                      fit: BoxFit.cover,
+                      placeholder: "images/default_video.png"),
               Expanded(
                   child: Container(
                       padding: EdgeInsets.all(10.0),
