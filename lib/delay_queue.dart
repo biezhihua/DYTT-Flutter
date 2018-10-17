@@ -9,10 +9,7 @@ class DelayObject {
 
   @override
   bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is DelayObject &&
-          runtimeType == other.runtimeType &&
-          key == other.key;
+      identical(this, other) || other is DelayObject && key == other.key;
 
   @override
   int get hashCode => key.hashCode;
@@ -29,30 +26,17 @@ class DelayQueue {
 
   DelayQueue._internal();
 
-  int _delayOfEachProducedMessageMillis = 1000;
   Queue<DelayObject> _delayQueue = ListQueue<DelayObject>();
-  bool _startFlag;
 
-  StreamSubscription _listen;
+  Timer _timer;
 
   void start() {
-    _start().listen((delayObject) {
-      delayObject.value();
-    });
-  }
-
-  Stream<DelayObject> _start() async* {
-    _startFlag = true;
-    int startTime = DateTime.now().millisecondsSinceEpoch;
-    while (_startFlag) {
-      int currentTime = DateTime.now().millisecondsSinceEpoch;
-      if (_delayQueue.length > 0 &&
-          (currentTime - startTime) >= _delayOfEachProducedMessageMillis) {
-        startTime = currentTime;
+    _timer = Timer.periodic(Duration(milliseconds: 1000), (timer) {
+      if (_delayQueue.length > 0) {
         var result = _delayQueue.removeFirst();
-        yield result;
+        result.value();
       }
-    }
+    });
   }
 
   void add(DelayObject t) {
@@ -60,15 +44,13 @@ class DelayQueue {
   }
 
   void remove(DelayObject t) {
-    _delayQueue.remove(t);
+    print("remove before ${_delayQueue.length} ${t.key}");
+    var result = _delayQueue.remove(t);
+    print("remove after ${_delayQueue.length} $result");
   }
 
   void stop() {
-    _startFlag = false;
+    _timer.cancel();
     _delayQueue.clear();
-    if (_listen != null) {
-      _listen.cancel();
-      _listen = null;
-    }
   }
 }

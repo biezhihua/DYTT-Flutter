@@ -29,6 +29,8 @@ class ListPageState extends State<ListPage> with WidgetsBindingObserver {
 
   List<MovieDetail> _data = List();
 
+  bool _dispose = false;
+
   ListPageState(this._tabType);
 
   @override
@@ -38,8 +40,35 @@ class ListPageState extends State<ListPage> with WidgetsBindingObserver {
     loadData();
   }
 
+  DelayObject delayObject;
+
+  void loadData() {
+    if (delayObject != null) {
+      delayQueue.remove(delayObject);
+    }
+    delayObject = DelayObject(_tabType.toString(), () {
+      _networkApi
+          .fetchMovieList(getCategoryIdByTab(), _currentPage)
+          .then((list) {
+        if (_dispose) {
+          print("loaddata callback dispose");
+          return;
+        }
+        print("loaddata callback ${_tabType.toString()}");
+        setState(() {
+          _data.addAll(list);
+        });
+      });
+    });
+    delayQueue.add(delayObject);
+  }
+
   @override
   void dispose() {
+    _dispose = true;
+    if (delayObject != null) {
+      delayQueue.remove(delayObject);
+    }
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
@@ -77,18 +106,6 @@ class ListPageState extends State<ListPage> with WidgetsBindingObserver {
     });
 
     return null;
-  }
-
-  void loadData() {
-    delayQueue.add(DelayObject(_tabType.toString(), () {
-      _networkApi
-          .fetchMovieList(getCategoryIdByTab(), _currentPage)
-          .then((list) {
-        setState(() {
-          _data.addAll(list);
-        });
-      });
-    }));
   }
 
   Widget _buildItem(MovieDetail movie, int i) {

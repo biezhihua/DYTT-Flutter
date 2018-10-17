@@ -1,6 +1,3 @@
-import 'dart:async';
-import 'dart:isolate';
-
 import 'package:DYTT_FLUTTER/delay_queue.dart';
 import 'package:DYTT_FLUTTER/drawerlayout.dart';
 import 'package:DYTT_FLUTTER/listpage.dart';
@@ -15,6 +12,7 @@ DelayQueue delayQueue = DelayQueue();
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    delayQueue.start();
     return MaterialApp(
       title: Strings.appName,
       theme: ThemeData(
@@ -36,7 +34,6 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-
   }
 
   @override
