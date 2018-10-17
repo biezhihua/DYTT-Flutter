@@ -63,12 +63,41 @@ class ListPageState extends State<ListPage> with WidgetsBindingObserver {
     delayQueue.add(delayObject);
   }
 
-  @override
-  void dispose() {
-    _dispose = true;
+  void updateItem(MovieDetail content) {
+    if (content == null || content.isPrefect) {
+      print("updateItem continue ${content.name}");
+      return;
+    }
+
+    print("updateItem ${content.toJson()}");
+
     if (delayObject != null) {
       delayQueue.remove(delayObject);
     }
+    delayObject = DelayObject(content.id.toString(), () {
+      _networkApi
+          .fetchMovieDetail(content.categoryId, content.id)
+          .then((movie) {
+        if (_dispose) {
+          print("updateItem callback dispose");
+          return;
+        }
+        setState(() {
+          movie.isPrefect = true;
+          var index = _data.indexOf(movie);
+          if (index != -1) {
+            _data[index] = movie;
+          }
+        });
+      });
+    });
+    delayQueue.add(delayObject);
+  }
+
+  @override
+  void dispose() {
+    _dispose = true;
+    delayQueue.clear();
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
@@ -89,6 +118,9 @@ class ListPageState extends State<ListPage> with WidgetsBindingObserver {
           return null;
         }
         MovieDetail content = _data[i];
+
+        updateItem(content);
+
         return _buildItem(content, i);
       },
     );
@@ -97,14 +129,12 @@ class ListPageState extends State<ListPage> with WidgetsBindingObserver {
 
   Future<Null> _handleRefresh() async {
     _currentPage = 1;
-
     var list =
         await _networkApi.fetchMovieList(getCategoryIdByTab(), _currentPage);
-
     setState(() {
+      _data.clear();
       _data.addAll(list);
     });
-
     return null;
   }
 
@@ -114,12 +144,12 @@ class ListPageState extends State<ListPage> with WidgetsBindingObserver {
         Container(
             margin: EdgeInsets.all(10.0),
             child: Row(children: <Widget>[
-              new Image.asset(
-                "images/default_video.png",
-                width: 150.0,
-                height: 200.0,
-                fit: BoxFit.cover,
-              ),
+              FadeInImage.assetNetwork(
+                  image: movie.homePicUrl,
+                  width: 150.0,
+                  height: 200.0,
+                  fit: BoxFit.cover,
+                  placeholder: "images/default_video.png"),
               Expanded(
                   child: Container(
                       padding: EdgeInsets.all(10.0),
@@ -145,7 +175,8 @@ class ListPageState extends State<ListPage> with WidgetsBindingObserver {
                             margin: EdgeInsets.only(top: 10.0),
                             child: Text(movie.content ?? "",
                                 softWrap: true,
-                                style: TextStyle(color: Colors.black87),
+                                style: TextStyle(
+                                    color: Colors.black87, fontSize: 12.0),
                                 maxLines: 5,
                                 overflow: TextOverflow.ellipsis),
                           )

@@ -49,6 +49,10 @@ class DelayQueue {
     print("remove after ${_delayQueue.length} $result");
   }
 
+  void clear() {
+    _delayQueue.clear();
+  }
+
   void stop() {
     _timer.cancel();
     _delayQueue.clear();

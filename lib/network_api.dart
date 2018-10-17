@@ -13,6 +13,7 @@ class MovieDetail {
   final String pics;
   final String downloadUrl;
   final String content;
+  bool isPrefect = false;
 
   MovieDetail.fromJson(Map<String, dynamic> json)
       : id = json['id'],
@@ -23,6 +24,28 @@ class MovieDetail {
         content = json['content'],
         pics = json['pics'],
         downloadUrl = json['downloadUrl'];
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'categoryId': categoryId,
+        'name': name,
+        'publishTime': publishTime,
+        'homePicUrl': homePicUrl,
+        'content': content,
+        'pics': pics,
+        'downloadUrl': downloadUrl,
+      };
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is MovieDetail &&
+          runtimeType == other.runtimeType &&
+          id == other.id &&
+          categoryId == other.categoryId;
+
+  @override
+  int get hashCode => id.hashCode ^ categoryId.hashCode;
 }
 
 class NetworkApi {
