@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:DYTT_FLUTTER/delay_queue.dart';
-import 'package:DYTT_FLUTTER/network_api.dart';
+import 'package:DYTT_FLUTTER/delayqueue.dart';
+import 'package:DYTT_FLUTTER/networkapi.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -139,8 +139,22 @@ class ListPageState extends State<ListPage> with WidgetsBindingObserver {
   }
 
   Widget _buildItem(MovieDetail movie, int i) {
-    return Column(
-      children: <Widget>[
+    return GestureDetector(
+      onTap: () {
+        print("click ${movie.name}");
+        Navigator.of(context).push(
+          new MaterialPageRoute(
+            builder: (context) {
+              return new Scaffold(
+                appBar: new AppBar(
+                  title: new Text('Saved Suggestions'),
+                ),
+              );
+            },
+          ),
+        );
+      },
+      child: Column(children: <Widget>[
         Container(
             margin: EdgeInsets.all(10.0),
             child: Row(children: <Widget>[
@@ -191,7 +205,7 @@ class ListPageState extends State<ListPage> with WidgetsBindingObserver {
                       )))
             ])),
         Divider(height: 2.0)
-      ],
+      ]),
     );
   }
 

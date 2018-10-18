@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:DYTT_FLUTTER/key_util.dart';
+import 'package:DYTT_FLUTTER/keyutil.dart';
 import 'package:http/http.dart' as http;
 
 class MovieDetail {

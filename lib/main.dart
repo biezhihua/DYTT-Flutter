@@ -1,4 +1,4 @@
-import 'package:DYTT_FLUTTER/delay_queue.dart';
+import 'package:DYTT_FLUTTER/delayqueue.dart';
 import 'package:DYTT_FLUTTER/drawerlayout.dart';
 import 'package:DYTT_FLUTTER/listpage.dart';
 import 'package:DYTT_FLUTTER/strings.dart';
