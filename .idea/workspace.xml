@@ -11,11 +11,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="012fc8ef-e0aa-4744-b2f5-d27a94aef1af" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/images/download.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/facyfab.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/detailpage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/detailpage.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/listpage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/listpage.dart" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -37,7 +33,7 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="dart" value="100" />
+          <entry key="dart" value="101" />
           <entry key="flutter-plugins" value="2" />
           <entry key="gradle" value="4" />
           <entry key="iml" value="3" />
@@ -52,7 +48,7 @@
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="Dart" value="100" />
+          <entry key="Dart" value="101" />
           <entry key="Groovy" value="4" />
           <entry key="IDEA_MODULE" value="3" />
           <entry key="JAVA" value="4" />
@@ -65,14 +61,14 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="dart" value="7373" />
+          <entry key="dart" value="7386" />
           <entry key="java" value="2" />
           <entry key="yaml" value="24" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Dart" value="7373" />
+          <entry key="Dart" value="7386" />
           <entry key="JAVA" value="2" />
           <entry key="YAML" value="24" />
         </counts>
@@ -81,6 +77,18 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/lib/listpage.dart">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="146">
+              <caret line="60" column="27" selection-start-line="60" selection-start-column="27" selection-end-line="60" selection-end-column="27" />
+              <folding>
+                <element signature="e#0#20#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$USER_HOME$/Software/flutter/packages/flutter/lib/src/material/page.dart">
           <provider selected="true" editor-type-id="text-editor">
@@ -99,7 +107,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/detailpage.dart">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="148">
@@ -201,10 +209,10 @@
         <option value="$PROJECT_DIR$/lib/main.dart" />
         <option value="$PROJECT_DIR$/lib/network_api.dart" />
         <option value="$PROJECT_DIR$/lib/delay_queue.dart" />
-        <option value="$PROJECT_DIR$/lib/listpage.dart" />
         <option value="$PROJECT_DIR$/lib/facyfab.dart" />
         <option value="$PROJECT_DIR$/pubspec.yaml" />
         <option value="$PROJECT_DIR$/lib/detailpage.dart" />
+        <option value="$PROJECT_DIR$/lib/listpage.dart" />
       </list>
     </option>
   </component>
@@ -422,7 +430,7 @@
       <window_info id="Build Variants" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.38379204" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.38379204" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.5674891" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -934,16 +942,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/listpage.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="182" column="30" lean-forward="true" selection-start-line="182" selection-start-column="30" selection-end-line="182" selection-end-column="30" />
-          <folding>
-            <element signature="e#0#20#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/dytt_flutter_android.iml">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -960,6 +958,16 @@
           <caret line="47" column="46" selection-start-line="47" selection-start-column="46" selection-end-line="47" selection-end-column="46" />
           <folding>
             <element signature="e#0#46#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/listpage.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="146">
+          <caret line="60" column="27" selection-start-line="60" selection-start-column="27" selection-end-line="60" selection-end-column="27" />
+          <folding>
+            <element signature="e#0#20#0" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -52,7 +52,7 @@ class ListPageState extends State<ListPage> with WidgetsBindingObserver {
       _networkApi
           .fetchMovieList(getCategoryIdByTab(), _currentPage)
           .then((list) {
-        if (_dispose) {
+        if (_dispose || list == null) {
           print("loaddata callback dispose");
           return;
         }
